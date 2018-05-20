@@ -12,9 +12,19 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_stats()
     {
-        return view('player.index');
+        return view('player.stats');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_spheres()
+    {
+        return view('player.spheres');
     }
 
     /**

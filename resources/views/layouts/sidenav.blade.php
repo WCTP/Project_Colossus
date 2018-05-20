@@ -2,7 +2,7 @@
 <div class="sidenav">
   <h1 class="title"><a href="/">Project Colossus</a></h1>
   @if (Auth::check())
-    <h3 class="title"><a href="/player/index">User: {{ Auth::user()->name }}</a></h3>
+    <h3 class="title"><a href="/player/stats">User: {{ Auth::user()->name }}</a></h3>
   @endif
   <a href="/document_general/index/General" class="main-link">General</a>
   <a href="/document_general/index/Software" class="main-link">Software</a>

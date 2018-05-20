@@ -33,7 +33,8 @@ Route::post('/document_general/update/{document_general}', 'DocumentGeneralContr
 Route::delete('/document_general/delete/{document_general}', 'DocumentGeneralController@destroy');
 
 /* player routes */
-Route::get('/player/index', 'PlayerController@index');
+Route::get('/player/stats', 'PlayerController@index_stats');
+Route::get('/player/spheres', 'PlayerController@index_spheres');
 
 /* search route */
 Route::get('/search/{keyword}', 'HomeController@search');
