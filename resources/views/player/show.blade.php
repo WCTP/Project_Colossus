@@ -86,4 +86,6 @@
     </div>
   </div>
 
+  @include('player.footer')
+
 @endsection

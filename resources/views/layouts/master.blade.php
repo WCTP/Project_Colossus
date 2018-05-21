@@ -21,9 +21,11 @@
         <link href="{{ asset('/css/index.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/show.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/player.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/css/sphere_grid.css') }}" rel="stylesheet" type="text/css">
 
         <!-- JS Scripts -->
         <script src="{{ asset('/js/debounce.min.js') }}"></script>
+        <script src="{{ asset('/js/smoothscroll.js') }}"></script>
         <script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
         <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
 

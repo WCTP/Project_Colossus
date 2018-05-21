@@ -97,6 +97,8 @@
     </form>
   </div>
 
+  @include('player.footer')
+
   <script type="text/javascript">
     /* allows nice edit to save data */
     $("button").click(function () {

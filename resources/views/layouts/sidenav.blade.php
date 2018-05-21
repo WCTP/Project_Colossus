@@ -7,8 +7,8 @@
   <a href="/document_general/index/Player's Handbook" class="main-link">Player's Handbook</a>
   <a href="/document_general/index/Monster Manual" class="main-link">Monster Manual</a>
   <a href="/document_general/index/Journal Log" class="main-link">Journal Log</a>
-  <a href="/document_general/index/Combat Grid" class="main-link">Combat Grid</a>
-  <a href="/document_general/index/Skill Grid" class="main-link">Skill Grid</a>
+  <a href="/sphere_grid/combat" class="main-link">Combat Grid</a>
+  <a href="/sphere_grid/skills" class="main-link">Skill Grid</a>
   @if (Auth::check())
     <a href="/create" class="main-link">Make New Document</a>
     <a href="/logout" class="main-link">Sign Out</a>
