@@ -23,13 +23,6 @@ class DocumentGeneralController extends Controller
         return view('document_general.index', compact('documents_general', 'category'));
     }
 
-    public function universal_index($category)
-    {
-      $documents_general = document_general::orderby('title', 'desc')->get();
-
-      return view('document_general.index', compact('documents_general', 'category'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *

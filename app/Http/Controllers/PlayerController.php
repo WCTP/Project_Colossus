@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\player;
 use Illuminate\Http\Request;
+use App\User;
+use Auth;
 
 class PlayerController extends Controller
 {
@@ -34,7 +36,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+        return view('player.create');
     }
 
     /**
@@ -45,7 +47,21 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(), [
+          'name' => 'required|string|max:255',
+          'email' => 'required|string|email|max:255|unique:users',
+          'username' => 'required|string|max:25',
+          'password' => 'required|string|min:6|confirmed'
+        ]);
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->password = bcrypt($request->input('password'));
+        $user->save();
+
+        return redirect('/');
     }
 
     /**
@@ -54,9 +70,9 @@ class PlayerController extends Controller
      * @param  \App\player  $player
      * @return \Illuminate\Http\Response
      */
-    public function show(player $player)
+    public function show(user $user)
     {
-        //
+        return view('player.show', compact('user'));
     }
 
     /**
@@ -65,9 +81,9 @@ class PlayerController extends Controller
      * @param  \App\player  $player
      * @return \Illuminate\Http\Response
      */
-    public function edit(player $player)
+    public function edit(user $user)
     {
-        //
+        return view('player.edit', compact('user'));
     }
 
     /**
@@ -77,9 +93,38 @@ class PlayerController extends Controller
      * @param  \App\player  $player
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, player $player)
+    public function update(Request $request, user $user)
     {
-        //
+        $this->validate(request(), [
+          'name' => 'required',
+          'email' => 'required',
+          'username' => 'required',
+        ]);
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->privilege = $request->input('privilege');
+        $user->sphere_hp = $request->input('sphere_hp');
+        $user->sphere_mp = $request->input('sphere_mp');
+        $user->sphere_ap = $request->input('sphere_ap');
+        $user->sphere_mov = $request->input('sphere_mov');
+        $user->sphere_str = $request->input('sphere_str');
+        $user->sphere_def = $request->input('sphere_def');
+        $user->sphere_mag = $request->input('sphere_mag');
+        $user->sphere_res = $request->input('sphere_res');
+        $user->sphere_eva = $request->input('sphere_eva');
+        $user->sphere_skl = $request->input('sphere_skl');
+        $user->sphere_vit = $request->input('sphere_vit');
+        $user->sphere_dex = $request->input('sphere_dex');
+        $user->sphere_con = $request->input('sphere_con');
+        $user->sphere_int = $request->input('sphere_int');
+        $user->sphere_wis = $request->input('sphere_wis');
+        $user->sphere_cha = $request->input('sphere_cha');
+        $user->inventory = $request->input('inventory');
+        $user->save();
+
+        return view('/player/stats');
     }
 
     /**
@@ -91,5 +136,12 @@ class PlayerController extends Controller
     public function destroy(player $player)
     {
         //
+    }
+
+    public function logout()
+    {
+      Auth::logout();
+
+      return back();
     }
 }

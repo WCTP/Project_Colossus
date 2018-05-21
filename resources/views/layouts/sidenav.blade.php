@@ -4,12 +4,11 @@
   @if (Auth::check())
     <h3 class="title"><a href="/player/stats">User: {{ Auth::user()->name }}</a></h3>
   @endif
-  <a href="/document_general/index/General" class="main-link">General</a>
-  <a href="/document_general/index/Software" class="main-link">Software</a>
-  <a href="/document_general/index/Workstation" class="main-link">Workstations</a>
-  <a href="/document_general/index/Hardware" class="main-link">Hardware</a>
-  <a href="/document_general/index/User Administration" class="main-link">User Administration</a>
-  <a href="/document_general/index/Other Department" class="main-link">Other Department</a>
+  <a href="/document_general/index/Player's Handbook" class="main-link">Player's Handbook</a>
+  <a href="/document_general/index/Monster Manual" class="main-link">Monster Manual</a>
+  <a href="/document_general/index/Journal Log" class="main-link">Journal Log</a>
+  <a href="/document_general/index/Combat Grid" class="main-link">Combat Grid</a>
+  <a href="/document_general/index/Skill Grid" class="main-link">Skill Grid</a>
   @if (Auth::check())
     <a href="/create" class="main-link">Make New Document</a>
     <a href="/logout" class="main-link">Sign Out</a>

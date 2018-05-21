@@ -4,12 +4,12 @@
   <h1 class="title">Register a User</h1>
 
   <div class="form-card">
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="/player">
         @csrf
 
-        <label for="username">{{ __('Username') }}</label>
+        <label for="username">{{ __('Character Name') }}</label>
         <div>
-          <input id="username" type="text" class="" name="username" value="{{ old('username') }}" required autofocus>
+          <input id="username" type="text" class="" name="username" value="{{ old('username') }}" maxlength="25" required autofocus>
         </div>
 
         <label for="name">{{ __('Name') }}</label>

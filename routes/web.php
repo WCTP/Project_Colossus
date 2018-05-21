@@ -20,7 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/create', 'HomeController@create');
 
 /* auth routes */
-Route::get('/logout', 'HomeController@logout');
+Route::get('/logout', 'PlayerController@logout');
 Auth::routes();
 
 /* document_general routes */
@@ -35,6 +35,12 @@ Route::delete('/document_general/delete/{document_general}', 'DocumentGeneralCon
 /* player routes */
 Route::get('/player/stats', 'PlayerController@index_stats');
 Route::get('/player/spheres', 'PlayerController@index_spheres');
+Route::get('/player/create', 'PlayerController@create');
+Route::get('/player/{user}', 'PlayerController@show');
+Route::get('/player/edit/{user}', 'PlayerController@edit');
+Route::post('/player', 'PlayerController@store');
+Route::post('/player/update/{user}', 'PlayerController@update');
+Route::delete('/player/delete/{user}', 'PlayerController@delete');
 
 /* search route */
 Route::get('/search/{keyword}', 'HomeController@search');

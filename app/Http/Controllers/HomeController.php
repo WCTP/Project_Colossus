@@ -33,13 +33,6 @@ class HomeController extends Controller
       return view('layouts.create');
     }
 
-    public function logout()
-    {
-      Auth::logout();
-
-      return back();
-    }
-
     public function search()
     {
       $keyword = document_general::get_category();

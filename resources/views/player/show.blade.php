@@ -1,7 +1,14 @@
 @extends ('layouts.master')
 
 @section('content')
-  <h1 class="player-title">{{ Auth::user()->username }}</h1>
+  <h1 class="title">{{ $user->username }}</h1>
+
+  <div class="show-document-card">
+    <h2>Name: {{ $user->name }}</h2>
+    <h2>Email: {{ $user->email }}</h2>
+    <h2>Character: {{ $user->username }}</h2>
+    <a class="edit-link" href="/player/edit/{{ $user->id }}">Edit</a>
+  </div>
 
   <h1 class="player-title">Combat Spheres</h1>
 
@@ -78,7 +85,5 @@
       <span class="player-stat-number sphere-background-ap">{{ Auth::user()->sphere_cha }}</span>
     </div>
   </div>
-
-  @include('player.footer')
 
 @endsection
