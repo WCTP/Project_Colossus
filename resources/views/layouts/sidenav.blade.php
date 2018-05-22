@@ -25,7 +25,7 @@
   <div class="search">
     <input type="text" name="search" id="search-box" size="12" placeholder="Search...">
   </div>
-  <div class="edit-controls"
+  <div class="edit-controls"></div>
   <div class="search-results"></div>
 
 </div>
