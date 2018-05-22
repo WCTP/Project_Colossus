@@ -14,7 +14,9 @@ class SphereGridController extends Controller
      */
     public function index_combat()
     {
-        return view('sphere_grid.combat');
+        $spheres = sphere_grid::all()->toArray();
+
+        return view('sphere_grid.combat', compact('spheres'));
     }
 
     /**
@@ -45,7 +47,25 @@ class SphereGridController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        sphere_grid::truncate();
+
+        $this->validate(request(), [
+          'x_pos' => 'required',
+          'y_pos' => 'required',
+          'connected_sphere_id_1' => 'required',
+          'sphere_type' => 'required'
+        ]);
+
+        $sphere = new sphere_grid();
+        $sphere->x_pos = $request->input('x_pos');
+        $sphere->y_pos = $request->input('y_pos');
+        $sphere->current_user_id_1 = $request->input('current_user_id_1');
+        $sphere->current_user_id_2 = $request->input('current_user_id_2');
+        $sphere->current_user_id_3 = $request->input('current_user_id_3');
+        $sphere->current_user_id_4 = $request->input('current_user_id_4');
+        $sphere->sphere_type = $request->input('sphere_type');
+        $sphere->sphere_type_value = $request->input('sphere_type_value');
+        $sphere->save();
     }
 
     /**

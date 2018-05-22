@@ -13,47 +13,51 @@
   <h1 class="player-title">Combat Spheres</h1>
 
   <div class="player-canvas">
-    <div class="player-stat">Hit Points
-      <span class="player-stat-number sphere-background-hp">{{ Auth::user()->sphere_hp }}</span>
+    <div class="player-stat">Essence
+      <span class="player-stat-number sphere-background-combat">{{ Auth::user()->sphere_ess }}</span>
     </div>
-    <div class="player-stat">Magic Points
-      <span class="player-stat-number sphere-background-mp">{{ Auth::user()->sphere_mp }}</span>
-    </div>
-  </div>
-
-  <div class="player-canvas">
-    <div class="player-stat">Ability Points
-      <span class="player-stat-number sphere-background-ap">{{ Auth::user()->sphere_ap }}</span>
-    </div>
-    <div class="player-stat">Strength
-      <span class="player-stat-number sphere-background-str">{{ Auth::user()->sphere_str }}</span>
+    <div class="player-stat">Speed
+      <span class="player-stat-number sphere-background-combat">{{ Auth::user()->sphere_spd }}</span>
     </div>
   </div>
 
   <div class="player-canvas">
-    <div class="player-stat">Movement
-      <span class="player-stat-number sphere-background-mov">{{ Auth::user()->sphere_mov }}</span>
-    </div>
-    <div class="player-stat">Magic
-      <span class="player-stat-number sphere-background-mag">{{ Auth::user()->sphere_mag }}</span>
-    </div>
-  </div>
-
-  <div class="player-canvas">
-    <div class="player-stat">Skill
-      <span class="player-stat-number sphere-background-skl">{{ Auth::user()->sphere_skl }}</span>
+    <div class="player-stat">Attack
+      <span class="player-stat-number sphere-background-combat">{{ Auth::user()->sphere_atk }}</span>
     </div>
     <div class="player-stat">Defense
-      <span class="player-stat-number sphere-background-def">{{ Auth::user()->sphere_def }}</span>
+      <span class="player-stat-number sphere-background-combat">{{ Auth::user()->sphere_def }}</span>
+    </div>
+  </div>
+
+  <h1 class="player-title">Attribute Spheres</h1>
+
+  <div class="player-canvas">
+    <div class="player-stat">Magic
+      <span class="player-stat-number sphere-background-attribute">{{ Auth::user()->sphere_magic }}</span>
+    </div>
+    <div class="player-stat">Skill
+      <span class="player-stat-number sphere-background-attribute">{{ Auth::user()->sphere_skill }}</span>
+    </div>
+  </div>
+
+  <h1 class="player-title">Key Spheres</h1>
+
+  <div class="player-canvas">
+    <div class="player-stat">Level 1 Key
+      <span class="player-stat-number sphere-background-key">{{ Auth::user()->sphere_lvl_1 }}</span>
+    </div>
+    <div class="player-stat">Level 2 Key
+      <span class="player-stat-number sphere-background-key">{{ Auth::user()->sphere_lvl_2 }}</span>
     </div>
   </div>
 
   <div class="player-canvas">
-    <div class="player-stat">Evasion
-      <span class="player-stat-number sphere-background-eva">{{ Auth::user()->sphere_eva }}</span>
+    <div class="player-stat">Level 3 Key
+      <span class="player-stat-number sphere-background-key">{{ Auth::user()->sphere_lvl_3 }}</span>
     </div>
-    <div class="player-stat">Resistance
-      <span class="player-stat-number sphere-background-res">{{ Auth::user()->sphere_res }}</span>
+    <div class="player-stat">Level 4 Key
+      <span class="player-stat-number sphere-background-key">{{ Auth::user()->sphere_lvl_4 }}</span>
     </div>
   </div>
 
@@ -61,28 +65,28 @@
 
   <div class="player-canvas">
     <div class="player-stat">Vitality
-      <span class="player-stat-number sphere-background-mov">{{ Auth::user()->sphere_vit }}</span>
+      <span class="player-stat-number sphere-background-vit">{{ Auth::user()->sphere_vit }}</span>
     </div>
     <div class="player-stat">Intelligence
-      <span class="player-stat-number sphere-background-mag">{{ Auth::user()->sphere_int }}</span>
+      <span class="player-stat-number sphere-background-int">{{ Auth::user()->sphere_int }}</span>
     </div>
   </div>
 
   <div class="player-canvas">
     <div class="player-stat">Dexterity
-      <span class="player-stat-number sphere-background-hp">{{ Auth::user()->sphere_dex }}</span>
+      <span class="player-stat-number sphere-background-dex">{{ Auth::user()->sphere_dex }}</span>
     </div>
     <div class="player-stat">Wisdom
-      <span class="player-stat-number sphere-background-mp">{{ Auth::user()->sphere_wis }}</span>
+      <span class="player-stat-number sphere-background-wis">{{ Auth::user()->sphere_wis }}</span>
     </div>
   </div>
 
   <div class="player-canvas">
     <div class="player-stat">Constitution
-      <span class="player-stat-number sphere-background-str">{{ Auth::user()->sphere_con }}</span>
+      <span class="player-stat-number sphere-background-con">{{ Auth::user()->sphere_con }}</span>
     </div>
     <div class="player-stat">Charisma
-      <span class="player-stat-number sphere-background-ap">{{ Auth::user()->sphere_cha }}</span>
+      <span class="player-stat-number sphere-background-cha">{{ Auth::user()->sphere_cha }}</span>
     </div>
   </div>
 

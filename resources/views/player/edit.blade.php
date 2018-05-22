@@ -25,45 +25,45 @@
           <option value="game master">game master</option>
         </select>
       </div>
-      <label for="sphere_hp">HP Spheres</label>
+      <label for="sphere_ess">Essence Spheres</label>
       <div>
-        <input id="sphere_hp" name="sphere_hp" value="{{ $user->sphere_hp }}" required>
+        <input id="sphere_ess" name="sphere_ess" value="{{ $user->sphere_ess }}" required>
       </div>
-      <label for="sphere_hp">MP Spheres</label>
+      <label for="sphere_spd">Speed Spheres</label>
       <div>
-        <input id="sphere_mp" name="sphere_mp" value="{{ $user->sphere_mp }}" required>
+        <input id="sphere_spd" name="sphere_spd" value="{{ $user->sphere_spd }}" required>
       </div>
-      <label for="sphere_ap">AP Spheres</label>
+      <label for="sphere_atk">Attack Spheres</label>
       <div>
-        <input id="sphere_ap" name="sphere_ap" value="{{ $user->sphere_ap }}" required>
-      </div>
-      <label for="sphere_mov">Movement Spheres</label>
-      <div>
-        <input id="sphere_mov" name="sphere_mov" value="{{ $user->sphere_mov }}" required>
-      </div>
-      <label for="sphere_str">Strength Spheres</label>
-      <div>
-        <input id="sphere_str" name="sphere_str" value="{{ $user->sphere_str }}" required>
+        <input id="sphere_atk" name="sphere_atk" value="{{ $user->sphere_atk }}" required>
       </div>
       <label for="sphere_def">Defense Spheres</label>
       <div>
         <input id="sphere_def" name="sphere_def" value="{{ $user->sphere_def }}" required>
       </div>
-      <label for="sphere_mag">Magic Spheres</label>
+      <label for="sphere_magic">Magic Spheres</label>
       <div>
-        <input id="sphere_mag" name="sphere_mag" value="{{ $user->sphere_mag }}" required>
+        <input id="sphere_magic" name="sphere_magic" value="{{ $user->sphere_magic }}" required>
       </div>
-      <label for="sphere_res">Resistance Spheres</label>
+      <label for="sphere_skill">Skill Spheres</label>
       <div>
-        <input id="sphere_res" name="sphere_res" value="{{ $user->sphere_res }}" required>
+        <input id="sphere_skill" name="sphere_skill" value="{{ $user->sphere_skill }}" required>
       </div>
-      <label for="sphere_eva">Evasion Spheres</label>
+      <label for="sphere_lvl_1">Level 1 Key Spheres</label>
       <div>
-        <input id="sphere_eva" name="sphere_eva" value="{{ $user->sphere_eva }}" required>
+        <input id="sphere_lvl_1" name="sphere_lvl_1" value="{{ $user->sphere_lvl_1 }}" required>
       </div>
-      <label for="sphere_skl">Skill Spheres</label>
+      <label for="sphere_lvl_2">Level 2 Key Spheres</label>
       <div>
-        <input id="sphere_skl" name="sphere_skl" value="{{ $user->sphere_skl }}" required>
+        <input id="sphere_lvl_2" name="sphere_lvl_2" value="{{ $user->sphere_lvl_2 }}" required>
+      </div>
+      <label for="sphere_lvl_3">Level 3 Key Spheres</label>
+      <div>
+        <input id="sphere_lvl_3" name="sphere_lvl_3" value="{{ $user->sphere_lvl_3 }}" required>
+      </div>
+      <label for="sphere_lvl_4">Level 4 Key Spheres</label>
+      <div>
+        <input id="sphere_lvl_4" name="sphere_lvl_4" value="{{ $user->sphere_lvl_4 }}" required>
       </div>
       <label for="sphere_vit">Vitality Spheres</label>
       <div>

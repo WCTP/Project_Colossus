@@ -45,6 +45,7 @@ Route::delete('/player/delete/{user}', 'PlayerController@delete');
 /* sphere_grid routes */
 Route::get('/sphere_grid/combat', 'SphereGridController@index_combat');
 Route::get('/sphere_grid/skills', 'SphereGridController@index_skills');
+Route::post('/sphere_grid/combat/store', 'SphereGridController@store');
 
 /* search route */
 Route::get('/search/{keyword}', 'HomeController@search');

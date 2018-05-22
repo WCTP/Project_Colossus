@@ -15,6 +15,17 @@ class CreateSphereGridsTable extends Migration
     {
         Schema::create('sphere_grids', function (Blueprint $table) {
             $table->increments('id');
+            $table->tinyInteger('x_pos');
+            $table->tinyInteger('y_pos');
+            $table->tinyInteger('current_user_id_1')->nullable();
+            $table->tinyInteger('current_user_id_2')->nullable();
+            $table->tinyInteger('connected_sphere_id_1')->nullable();
+            $table->tinyInteger('connected_sphere_id_2')->nullable();
+            $table->tinyInteger('connected_sphere_id_3')->nullable();
+            $table->tinyInteger('connected_sphere_id_4')->nullable();
+            $table->string('sphere_type');
+            $table->tinyInteger('sphere_type_value')->nullable();
+            $table->string('user_id_activated')->nullable();
             $table->timestamps();
         });
     }

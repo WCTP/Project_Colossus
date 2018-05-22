@@ -11,6 +11,13 @@
   <a href="/sphere_grid/skills" class="main-link">Skill Grid</a>
   @if (Auth::check())
     <a href="/create" class="main-link">Make New Document</a>
+    @if (Auth::user()->privilege == "game master")
+      <a href="/player/create" class="master-link">Make New Player</a>
+      @if (strpos(url()->current(), 'combat') !== false)
+        <a href="#" class="master-link" id="edit-combat-grid" alt="0">Edit Sphere Grid</a>
+        <a href="#" class="master-link" id="save-combat-grid">Save Sphere Grid</a>
+      @endif
+    @endif
     <a href="/logout" class="main-link">Sign Out</a>
   @else
     <a href="/login" class="main-link">Sign In</a>
@@ -18,6 +25,7 @@
   <div class="search">
     <input type="text" name="search" id="search-box" size="12" placeholder="Search...">
   </div>
+  <div class="edit-controls"
   <div class="search-results"></div>
 
 </div>
