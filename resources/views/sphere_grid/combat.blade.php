@@ -23,14 +23,15 @@
     $( window ).on('load', function() {
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
-        $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value);
+        $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
       });
       $(".sphere").click(function() {
         $(".edit-controls").empty();
         $(this).removeClass('sphere');
         $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
           + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
-          + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>');
+          + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>'
+          + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>');
         $(this).addClass('sphere');
       });
     });
@@ -105,7 +106,8 @@
           + '<option>key</option>'
           + '<option>null</option>'
           + '</select>'
-          + '<input type="text" id="sphere_value" size="12" placeholder="Value...">');
+          + '<input type="text" id="sphere_value" size="12" placeholder="Value...">'
+          + '<input type="text" id="connected_sphere_id_1" size="12" placeholder="Con. Sphere ID 1">');
         $(".edit-controls").css("display", "block");
         $(".sphere").addClass("grid-layout");
         $(".sphere").unbind();
@@ -129,7 +131,8 @@
           $(this).removeClass('sphere');
           $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
             + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
-            + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>');
+            + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>'
+            + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>');
           $(this).addClass('sphere');
         });
       }

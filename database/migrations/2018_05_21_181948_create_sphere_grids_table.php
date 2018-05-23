@@ -19,10 +19,10 @@ class CreateSphereGridsTable extends Migration
             $table->tinyInteger('y_pos');
             $table->tinyInteger('current_user_id_1')->nullable();
             $table->tinyInteger('current_user_id_2')->nullable();
-            $table->tinyInteger('connected_sphere_id_1')->nullable();
-            $table->tinyInteger('connected_sphere_id_2')->nullable();
-            $table->tinyInteger('connected_sphere_id_3')->nullable();
-            $table->tinyInteger('connected_sphere_id_4')->nullable();
+            $table->string('connected_sphere_id_1')->nullable();
+            $table->string('connected_sphere_id_2')->nullable();
+            $table->string('connected_sphere_id_3')->nullable();
+            $table->string('connected_sphere_id_4')->nullable();
             $table->string('sphere_type');
             $table->string('sphere_type_value')->nullable();
             $table->string('user_id_activated')->nullable();
