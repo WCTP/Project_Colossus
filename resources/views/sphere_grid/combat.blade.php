@@ -5,7 +5,7 @@
 
   <div class="container dragscroll" id="container">
     @for ($i = 0; $i < 101; $i++)
-      <div class="grid-container">
+      <div class="grid-container" oncontextmenu="return false">
         @for ($w = 0; $w < 101; $w++)
         <div class="sphere" id="{{ $i }}-{{ $w }}">none</div>
         @endfor
@@ -24,6 +24,14 @@
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
         $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value);
+      });
+      $(".sphere").click(function() {
+        $(".edit-controls").empty();
+        $(this).removeClass('sphere');
+        $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
+          + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
+          + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>');
+        $(this).addClass('sphere');
       });
     });
 
@@ -72,7 +80,7 @@
         i++;
         $("#search-box").val(i);
         if (i < max) {
-          setTimeout( submit, 400);
+          setTimeout( submit, 200);
         }
       }
 
@@ -89,6 +97,7 @@
         $("#edit-combat-grid").removeClass("master-link");
         $("#edit-combat-grid").addClass("master-link-active");
         $("#edit-combat-grid").attr('alt', '1');
+        $(".edit-controls").empty();
         $(".edit-controls").append('<h3 class="title">Combat Edit Controls</h3>'
           + '<select id="sphere_type">'
           + '<option>combat</option>'
@@ -99,18 +108,30 @@
           + '<input type="text" id="sphere_value" size="12" placeholder="Value...">');
         $(".edit-controls").css("display", "block");
         $(".sphere").addClass("grid-layout");
+        $(".sphere").unbind();
         $(".sphere").click(function() {
           $(this).addClass($("#sphere_type").val());
           $(this).text($("#sphere_value").val());
+        });
+        $(".sphere").contextmenu(function() {
+          $(this).removeClass($("#sphere_type").val());
+          $(this).text("none");
         });
       } else {
         $("#edit-combat-grid").removeClass("master-link-active");
         $("#edit-combat-grid").addClass("master-link");
         $("#edit-combat-grid").attr('alt', '0');
         $(".edit-controls").empty();
-        $(".edit-controls").css("display", "none");
         $(".sphere").removeClass("grid-layout");
         $(".sphere").unbind();
+        $(".sphere").click(function() {
+          $(".edit-controls").empty();
+          $(this).removeClass('sphere');
+          $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
+            + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
+            + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>');
+          $(this).addClass('sphere');
+        });
       }
     });
 

@@ -64,6 +64,8 @@ class SphereGridController extends Controller
         $sphere->sphere_type = $request->input('sphere_type');
         $sphere->sphere_type_value = $request->input('sphere_type_value');
         $sphere->save();
+
+        return $sphere;
     }
 
     /**
