@@ -58,11 +58,34 @@ class SphereGridController extends Controller
           'sphere_type' => 'required'
         ]);
 
+        $sphere_text = explode(";", $request->input('sphere_type_value'));
+        $max = count($sphere_text);
+        $counter = 0;
+
         $sphere = new sphere_grid();
         $sphere->x_pos = $request->input('x_pos');
         $sphere->y_pos = $request->input('y_pos');
         $sphere->sphere_type = $request->input('sphere_type');
-        $sphere->sphere_type_value = $request->input('sphere_type_value');
+        if ($counter < $max) {
+          $sphere->sphere_type_value = $sphere_text[$counter];
+          $counter++;
+        }
+        if ($counter < $max) {
+          $sphere->connected_sphere_id_1 = $sphere_text[$counter];
+          $counter++;
+        }
+        if ($counter < $max) {
+          $sphere->connected_sphere_id_2 = $sphere_text[$counter];
+          $counter++;
+        }
+        if ($counter < $max) {
+          $sphere->connected_sphere_id_3 = $sphere_text[$counter];
+          $counter++;
+        }
+        if ($counter < $max) {
+          $sphere->connected_sphere_id_4 = $sphere_text[$counter];
+          $counter++;
+        }
         $sphere->save();
 
         return $sphere;

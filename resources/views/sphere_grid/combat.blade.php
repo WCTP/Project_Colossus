@@ -23,9 +23,25 @@
     $( window ).on('load', function() {
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
-        $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
+        if (sphere.connected_sphere_id_1 == null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        } else if (sphere.connected_sphere_id_1 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        } else if (sphere.connected_sphere_id_2 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        } else if (sphere.connected_sphere_id_3 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        }  else if (sphere.connected_sphere_id_4 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        }
       });
-      $(".sphere").click(function() {
+      /* NOTE: function also occurs when editting mode is turned off */
+      $(".combat, .attribute, .key, .null").click(function() {
         $(".edit-controls").empty();
         $(this).removeClass('sphere');
         $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
@@ -38,13 +54,27 @@
 
     /* button allowing combat grid to be saved */
     $("#save-combat-grid").click(function() {
+      false_data = {
+        _token: "{{ csrf_token() }}",
+        x_pos: 0,
+        y_pos: 0,
+        sphere_type: "none",
+        sphere_type_value: "none"
+      }
+      $.ajax({
+        type: "POST",
+        url: "/sphere_grid/combat/destroy_all",
+        data: false_data,
+        cache: false,
+        success: console.log("success")
+      })
+
       var new_spheres = new Array();
       var counter = 0;
       for (var i = 0; i < 101; i++) {
         for (var w = 0; w < 101; w++) {
           if ( $("#" + i + "-" + w).text() !== "none") {
             $("#" + i + "-" + w).removeClass("grid-layout");
-            $("#" + i + "-" + w).removeClass("sphere");
             new_spheres[counter] = {
               _token: "{{ csrf_token() }}",
               x_pos: i,
@@ -53,20 +83,11 @@
               sphere_type_value: $("#" + i + "-" + w).text()
             }
             $("#" + i + "-" + w).addClass("grid-layout");
-            $("#" + i + "-" + w).addClass("sphere");
             counter++;
           }
         }
       }
       console.log(new_spheres);
-
-      $.ajax({
-        type: "POST",
-        url: "/sphere_grid/combat/destroy_all",
-        data: new_spheres[0],
-        cache: false,
-        success: console.log("success")
-      })
 
       var i = 0;
       var max = new_spheres.length;
@@ -94,6 +115,7 @@
     $("#edit-combat-grid").click(function() {
       var master_class = $("#edit-combat-grid").attr('class');
 
+      /* switching ON edit controls */
       if (master_class === "master-link") {
         $("#edit-combat-grid").removeClass("master-link");
         $("#edit-combat-grid").addClass("master-link-active");
@@ -107,33 +129,54 @@
           + '<option>null</option>'
           + '</select>'
           + '<input type="text" id="sphere_value" size="12" placeholder="Value...">'
-          + '<input type="text" id="connected_sphere_id_1" size="12" placeholder="Con. Sphere ID 1">');
+          + '<input type="text" id="connected_sphere_id_1" size="12" placeholder="Con. Sphere ID 1">'
+          + '<input type="text" id="connected_sphere_id_2" size="12" placeholder="Con. Sphere ID 2">'
+          + '<button class="edit-connection-submission" id="submit_connection">Connect Spheres</button>');
         $(".edit-controls").css("display", "block");
-        $(".sphere").addClass("grid-layout");
-        $(".sphere").unbind();
+        $(".sphere, .combat, .attribute, .key, .null").addClass("grid-layout");
+        $(".sphere, .combat, .attribute, .key, .null").unbind();
         $(".sphere").click(function() {
+          $(this).removeClass("sphere");
           $(this).addClass($("#sphere_type").val());
           $(this).text($("#sphere_value").val());
         });
-        $(".sphere").contextmenu(function() {
-          $(this).removeClass($("#sphere_type").val());
-          $(this).text("none");
+        $(".combat, .attribute, .key, .null").contextmenu(function() {
+          if ($(this).attr('class').includes($("#sphere_type").val())) {
+            $(this).removeClass($("#sphere_type").val());
+            $(this).text("none");
+            $(this).addClass("sphere");
+          }
         });
+        /* take last two spheres clicked on and allow you to connect them */
+        var isFirstConnected = 0;
+        $(".combat, .attribute, .key, .null").click(function() {
+          if (isFirstConnected == 0) {
+            $("#connected_sphere_id_1").val($(this).attr('id'));
+            isFirstConnected = 1;
+          } else {
+            $("#connected_sphere_id_2").val($(this).attr('id'));
+            isFirstConnected = 0;
+          }
+        });
+        $("#submit_connection").click(function() {
+          $("#" + $("#connected_sphere_id_1").val()).append(";" + $("#connected_sphere_id_2").val());
+          $("#" + $("#connected_sphere_id_2").val()).append(";" + $("#connected_sphere_id_1").val());
+        });
+      /* switching OFF edit controls */
       } else {
         $("#edit-combat-grid").removeClass("master-link-active");
         $("#edit-combat-grid").addClass("master-link");
         $("#edit-combat-grid").attr('alt', '0');
         $(".edit-controls").empty();
-        $(".sphere").removeClass("grid-layout");
-        $(".sphere").unbind();
-        $(".sphere").click(function() {
+        $(".sphere, .combat, .attribute, .key, .null").removeClass("grid-layout");
+        $(".sphere, .combat, .attribute, .key, .null").unbind();
+        /* NOTE: function also occurs when window loads */
+        $(".combat, .attribute, .key, .null").click(function() {
           $(".edit-controls").empty();
-          $(this).removeClass('sphere');
           $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
             + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
             + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>'
             + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>');
-          $(this).addClass('sphere');
         });
       }
     });
