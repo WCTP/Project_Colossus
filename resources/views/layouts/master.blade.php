@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>ProDocument</title>
+        <title>Project Colossus</title>
         <link rel="icon" href="{{ asset('/image/support_logo.ico') }}">
 
         <!-- Google Font -->
@@ -18,8 +18,7 @@
         <link href="{{ asset('/css/layouts.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/home.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/auth.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('/css/index.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('/css/show.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('/css/document_general.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/player.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/css/sphere_grid.css') }}" rel="stylesheet" type="text/css">
 

@@ -6,6 +6,7 @@
   @endif
   <a href="/document_general/index/Player's Handbook" class="main-link">Player's Handbook</a>
   <a href="/document_general/index/Monster Manual" class="main-link">Monster Manual</a>
+  <a href="/document_general/index/Lore" class="main-link">Lore</a>
   <a href="/document_general/index/Journal Log" class="main-link">Journal Log</a>
   <a href="/sphere_grid/combat" class="main-link">Combat Grid</a>
   <a href="/sphere_grid/skills" class="main-link">Skill Grid</a>

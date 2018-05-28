@@ -18,9 +18,9 @@ class CreateDocumentGeneralsTable extends Migration
           $table->integer('user_id');
           $table->string('category');
           $table->string('title');
-          $table->string('purpose');
-          $table->text('process');
-          $table->text('troubleshooting')->nullable();
+          $table->text('description');
+          $table->text('secret')->nullable();
+          $table->tinyInteger('hidden')->default(0);
           $table->timestamps();
         });
     }

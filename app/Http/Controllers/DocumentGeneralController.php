@@ -45,18 +45,17 @@ class DocumentGeneralController extends Controller
     {
         $this->validate(request(), [
           'title' => 'required',
-          'purpose' => 'required',
-          'process' => 'required',
-          'category' => 'required'
+          'category' => 'required',
+          'description' => 'required',
         ]);
 
         $general_document = new document_general();
         $general_document->user_id = Auth::user()->id;
         $general_document->title = $request->input('title');
-        $general_document->purpose = $request->input('purpose');
-        $general_document->process = $request->input('process');
-        $general_document->troubleshooting = $request->input('troubleshooting');
         $general_document->category = $request->input('category');
+        $general_document->description = $request->input('description');
+        $general_document->secret = $request->input('secret');
+        $general_document->hidden = $request->input('hidden');
         $general_document->save();
 
         return redirect('/document_general/index/' . $general_document->category);
@@ -95,9 +94,8 @@ class DocumentGeneralController extends Controller
     {
       $this->validate(request(), [
         'title' => 'required',
-        'purpose' => 'required',
-        'process' => 'required',
-        'category' => 'required'
+        'category' => 'required',
+        'description' => 'required',
       ]);
 
       $document_general->update($request->all());
