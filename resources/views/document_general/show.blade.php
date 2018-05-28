@@ -12,14 +12,16 @@
       <p>{!! html_entity_decode($document_general->secret) !!}</p>
       <hr>
     @endif
-    <div class="footer-container">
-      <a class="edit-link" href="/document_general/edit/{{ $document_general->id }}">Edit</a>
-      <form action="/document_general/delete/{{ $document_general->id }}" method="post">
-        {{ csrf_field() }}
-        {{ method_field('DELETE') }}
-        <button type="submit">Delete</button>
-      </form>
-    </div>
+    @if (Auth::user()->privilege == "game master")
+      <div class="footer-container">
+        <a class="edit-link" href="/document_general/edit/{{ $document_general->id }}">Edit</a>
+        <form action="/document_general/delete/{{ $document_general->id }}" method="post">
+          {{ csrf_field() }}
+          {{ method_field('DELETE') }}
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    @endif
   </div>
 
 @endsection
