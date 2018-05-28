@@ -24,6 +24,7 @@ class CreateSphereGridsTable extends Migration
             $table->string('connected_sphere_id_3')->nullable();
             $table->string('connected_sphere_id_4')->nullable();
             $table->string('sphere_type');
+            $table->string('sphere_stat')->nullable();
             $table->string('sphere_type_value')->nullable();
             $table->string('user_id_activated')->nullable();
             $table->timestamps();

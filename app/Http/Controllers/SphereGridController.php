@@ -67,6 +67,10 @@ class SphereGridController extends Controller
         $sphere->y_pos = $request->input('y_pos');
         $sphere->sphere_type = $request->input('sphere_type');
         if ($counter < $max) {
+          $sphere->sphere_stat = $sphere_text[$counter];
+          $counter++;
+        }
+        if ($counter < $max) {
           $sphere->sphere_type_value = $sphere_text[$counter];
           $counter++;
         }

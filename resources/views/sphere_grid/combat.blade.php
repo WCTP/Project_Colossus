@@ -128,6 +128,18 @@
           + '<option>key</option>'
           + '<option>null</option>'
           + '</select>'
+          + '<select id="sphere_stat">'
+          + '<option>hp</option>'
+          + '<option>mp</option>'
+          + '<option>ap</option>'
+          + '<option>mov</option>'
+          + '<option>skl</option>'
+          + '<option>eva</option>'
+          + '<option>str</option>'
+          + '<option>mag</option>'
+          + '<option>def</option>'
+          + '<option>res</option>'
+          + '</select>'
           + '<input type="text" id="sphere_value" size="12" placeholder="Value...">'
           + '<input type="text" id="connected_sphere_id_1" size="12" placeholder="Con. Sphere ID 1">'
           + '<input type="text" id="connected_sphere_id_2" size="12" placeholder="Con. Sphere ID 2">'
@@ -138,7 +150,11 @@
         $(".sphere").click(function() {
           $(this).removeClass("sphere");
           $(this).addClass($("#sphere_type").val());
-          $(this).text($("#sphere_value").val());
+          if ($("#sphere_value").val() != "") {
+            $(this).text($("#sphere_stat").val() + ";" + $("#sphere_value").val());
+          } else {
+            $(this).text($("#sphere_stat").val() + ";" + "0");
+          }
         });
         $(".combat, .attribute, .key, .null").contextmenu(function() {
           if ($(this).attr('class').includes($("#sphere_type").val())) {
