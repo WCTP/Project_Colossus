@@ -11,21 +11,25 @@
       <div>
         <input id="title" name="title" value="{{ $document_general->title }}" required autofocus>
       </div>
-      <label for="purpose">Purpose</label>
+      <label for="description">Description</label>
       <div>
-        <input id="purpose" name="purpose" value="{{ $document_general->purpose }}" required>
+        <textarea id="description" name="description" rows="14" value="{{ $document_general->description }}" required>{{ $document_general->description }}</textarea>
       </div>
-      <label for="process">Process</label>
+      <label for="secret">Secret</label>
       <div>
-        <textarea id="process" name="process" rows="14" value="{{ $document_general->process }}" required>{{ $document_general->process }}</textarea>
+        <textarea id="secret" name="secret" rows="14" value="{{ $document_general->secret }}" required>{{ $document_general->secret }}</textarea>
       </div>
-      <label for="troubleshooting">Troubleshooting Tips</label>
-      <div>
-        <textarea id="troubleshooting" name="troubleshooting" rows="10" value="{{ $document_general->troubleshooting }}" required>{{ $document_general->troubleshooting }}</textarea>
+      <input type="hidden" id="hidden" name="hidden" value=0>
+      <div class="footer-container">
+        <button type="submit">
+            Submit
+        </button>
+        @if (Auth::user()->privilege == "game master")
+          <button type="button" id="switch-hidden" class="hide-inactive">
+            Hide
+          </button>
+        @endif
       </div>
-      <button type="submit">
-          Submit
-      </button>
     </form>
   </div>
 
@@ -35,6 +39,18 @@
       $("textarea").each(function () {
         nicEditors.findEditor(this.id).saveContent();
       });
+    });
+
+    $("#switch-hidden").click(function() {
+      if ($("#hidden").val() == 0) {
+        $("#hidden").val(1);
+        $("#switch-hidden").removeClass("hide-inactive");
+        $("#switch-hidden").addClass("hide-active");
+      } else if ($("#hidden").val() == 1) {
+        $("#hidden").val(0);
+        $("#switch-hidden").removeClass("hide-active");
+        $("#switch-hidden").addClass("hide-inactive");
+      }
     });
   </script>
 @endsection
