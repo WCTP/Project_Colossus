@@ -5,7 +5,7 @@
 
   <div class="container dragscroll" id="container">
     @for ($i = 0; $i < 101; $i++)
-      <div class="grid-container" oncontextmenu="return false">
+      <div id="grid-container" class="grid-container" oncontextmenu="return true">
         @for ($w = 0; $w < 101; $w++)
         <div class="sphere" id="{{ $i }}-{{ $w }}">none</div>
         @endfor
@@ -24,20 +24,39 @@
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
         if (sphere.connected_sphere_id_1 == null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         } else if (sphere.connected_sphere_id_1 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         } else if (sphere.connected_sphere_id_2 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         } else if (sphere.connected_sphere_id_3 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         }  else if (sphere.connected_sphere_id_4 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        }
+      });
+      /* loading paths between spheres */
+      $.each(spheres, function(index, sphere) {
+        if (sphere.connected_sphere_id_1 != null) {
+          var sphere1 = $("#" + sphere.x_pos + "-" + sphere.y_pos).position();
+          var sphere2 = $("#" + sphere.connected_sphere_id_1).position();
+          var length = Math.sqrt((sphere1.left - sphere2.left) * (sphere1.left - sphere2.left) + (sphere1.top - sphere2.top) * (sphere1.top - sphere2.top));
+          var angle = Math.atan2(sphere2.top - sphere1.top, sphere2.left - sphere1.left) * 180 / Math.PI;
+          var transform = 'rotate(' + angle + 'deg)';
+          var line = $('<div>').appendTo("#" + sphere.x_pos + "-" + sphere.y_pos).addClass('line')
+            .css({
+              'position': 'relative',
+              'transform': transform
+            })
+            .width(length)
+            .offset({left: sphere1.left + 11, top: sphere1.top + 11});
+          console.log("Length: " + length + " Angle: " + angle);
+          console.log($("#" + sphere.x_pos + "-" + sphere.y_pos).val());
         }
       });
       /* NOTE: function also occurs when editting mode is turned off */

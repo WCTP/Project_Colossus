@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('username')->default('name');
             $table->string('privilege')->default('player');
+            $table->tinyInteger('player_level')->default(0);
             $table->tinyInteger('hp')->default(0);
             $table->tinyInteger('max_hp')->default(0);
             $table->tinyInteger('mp')->default(0);
@@ -55,6 +56,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('sphere_wis')->default(0);
             $table->tinyInteger('sphere_cha')->default(0);
             $table->text('inventory')->nullable();
+            $table->text('journal')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
