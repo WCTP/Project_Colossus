@@ -21,53 +21,110 @@
 
     /* load in all the spheres*/
     $( window ).on('load', function() {
+      /* loading paths between spheres */
+      $.each(spheres, function(index, sphere) {
+        for (var i = 0; i < 4; i++) {
+          if (i == 0 && sphere.connected_sphere_id_1 != null) {
+            var x_pos = sphere.x_pos;
+            var y_pos = sphere.y_pos;
+            var x_connected = sphere.connected_sphere_id_1.substring(0, sphere.connected_sphere_id_1.indexOf('-'));
+            var y_connected = sphere.connected_sphere_id_1.substring(sphere.connected_sphere_id_1.indexOf('-') + 1, sphere.connected_sphere_id_1.length);
+          } else if (i == 1 && sphere.connected_sphere_id_2 != null) {
+            var x_pos = sphere.x_pos;
+            var y_pos = sphere.y_pos;
+            var x_connected = sphere.connected_sphere_id_2.substring(0, sphere.connected_sphere_id_2.indexOf('-'));
+            var y_connected = sphere.connected_sphere_id_2.substring(sphere.connected_sphere_id_2.indexOf('-') + 1, sphere.connected_sphere_id_2.length);
+          } else if (i == 2 && sphere.connected_sphere_id_3 != null) {
+            var x_pos = sphere.x_pos;
+            var y_pos = sphere.y_pos;
+            var x_connected = sphere.connected_sphere_id_3.substring(0, sphere.connected_sphere_id_3.indexOf('-'));
+            var y_connected = sphere.connected_sphere_id_3.substring(sphere.connected_sphere_id_3.indexOf('-') + 1, sphere.connected_sphere_id_3.length);
+          } else if (i == 3 && sphere.connected_sphere_id_4 != null) {
+            var x_pos = sphere.x_pos;
+            var y_pos = sphere.y_pos;
+            var x_connected = sphere.connected_sphere_id_4.substring(0, sphere.connected_sphere_id_4.indexOf('-'));
+            var y_connected = sphere.connected_sphere_id_4.substring(sphere.connected_sphere_id_4.indexOf('-') + 1, sphere.connected_sphere_id_4.length);
+          }
+          /* if horizontal difference */
+          if (x_pos == x_connected && y_pos < y_connected) {
+            y_pos++;
+            while (y_pos < y_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("horizontal");
+              y_pos++;
+            }
+          /* if vertical difference */
+          } else if (x_pos < x_connected && y_pos == y_connected) {
+            x_pos++;
+            while (x_pos < x_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("vertical");
+              x_pos++;
+            }
+          /* if diagonal left */
+          } else if (x_pos < x_connected && y_pos < y_connected) {
+            x_pos++;
+            y_pos++;
+            while (x_pos < x_connected && y_pos < y_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("diagonal-left");
+              x_pos++;
+              y_pos++;
+            }
+            while (x_pos < x_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("vertical");
+              x_pos++;
+            }
+            while (y_pos < y_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("horizontal");
+              y_pos++;
+            }
+          /* if diagonal right */
+          } else if (x_pos < x_connected && y_pos > y_connected) {
+            x_pos++;
+            y_pos--;
+
+            while (x_pos < x_connected && y_pos > y_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("diagonal-right");
+              x_pos++;
+              y_pos--;
+            }
+            while (x_pos < x_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("vertical");
+              x_pos++;
+            }
+            while (y_pos > y_connected) {
+              $("#" + x_pos + "-" + y_pos).addClass("horizontal");
+              y_pos--;
+            }
+          }
+        }
+      });
+      /* loading in sphere values and classes */
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
-        if (sphere.connected_sphere_id_1 == null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value);
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
-        } else if (sphere.connected_sphere_id_1 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
-        } else if (sphere.connected_sphere_id_2 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2);
+        if (sphere.connected_sphere_id_4 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         } else if (sphere.connected_sphere_id_3 != null) {
           $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
-        }  else if (sphere.connected_sphere_id_4 != null) {
-          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
+        } else if (sphere.connected_sphere_id_2 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        } else if (sphere.connected_sphere_id_1 != null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1);
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
+        }  else if (sphere.connected_sphere_id_1 == null) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
         }
       });
-      /* loading paths between spheres */
-      $.each(spheres, function(index, sphere) {
-        if (sphere.connected_sphere_id_1 != null) {
-          var sphere1 = $("#" + sphere.x_pos + "-" + sphere.y_pos).position();
-          var sphere2 = $("#" + sphere.connected_sphere_id_1).position();
-          var length = Math.sqrt((sphere1.left - sphere2.left) * (sphere1.left - sphere2.left) + (sphere1.top - sphere2.top) * (sphere1.top - sphere2.top));
-          var angle = Math.atan2(sphere2.top - sphere1.top, sphere2.left - sphere1.left) * 180 / Math.PI;
-          var transform = 'rotate(' + angle + 'deg)';
-          var line = $('<div>').appendTo("#" + sphere.x_pos + "-" + sphere.y_pos).addClass('line')
-            .css({
-              'position': 'relative',
-              'transform': transform
-            })
-            .width(length)
-            .offset({left: sphere1.left + 11, top: sphere1.top + 11});
-          console.log("Length: " + length + " Angle: " + angle);
-          console.log($("#" + sphere.x_pos + "-" + sphere.y_pos).val());
-        }
-      });
+
       /* NOTE: function also occurs when editting mode is turned off */
       $(".combat, .attribute, .key, .null").click(function() {
         $(".edit-controls").empty();
-        $(this).removeClass('sphere');
         $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
           + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
           + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>'
           + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>');
-        $(this).addClass('sphere');
       });
     });
 
