@@ -13,14 +13,19 @@
     @endfor
   </div>
 
-  <!-- Thank you kswedberg for making the smooth scrolling -->
-  <!-- https://github.com/kswedberg/jquery-smooth-scroll -->
   <script type="text/javascript">
     /* retrieve all of the spheres */
     var spheres = {!! json_encode($spheres) !!};
 
     /* load in all the spheres*/
     $( window ).on('load', function() {
+      $("#container").scrollTop(10000);
+      $("#container").scrollLeft(10000);
+      var topMiddle = $("#container").scrollTop() / 2;
+      var leftMiddle = $("#container").scrollLeft() / 2;
+      $("#container").scrollTop(topMiddle);
+      $("#container").scrollLeft(leftMiddle);
+
       /* loading paths between spheres */
       $.each(spheres, function(index, sphere) {
         for (var i = 0; i < 4; i++) {
@@ -272,18 +277,6 @@
         });
       }
     });
-
-    /* smooth scroll to the middle */
-    $("#title").click(function() {
-      console.log("HI");
-      $.smoothScroll({
-        scrollElement: $('#container'),
-        scrollTarget: $('#40-40')
-      });
-    });
-
-
-
   </script>
 
   <!-- Thank you DragScroll for allowing dragging with mouse to scroll. -->
