@@ -16,9 +16,12 @@
   <script type="text/javascript">
     /* retrieve all of the spheres */
     var spheres = {!! json_encode($spheres) !!};
+    var user_id = {!! json_encode(Auth::user()->id) !!};
+    var current_sphere;
 
     /* load in all the spheres*/
     $( window ).on('load', function() {
+      /* scroll to middle of sphere grid */
       $("#container").scrollTop(10000);
       $("#container").scrollLeft(10000);
       var topMiddle = $("#container").scrollTop() / 2;
@@ -102,9 +105,33 @@
           }
         }
       });
+
+      /* loading in movement controls */
+      $("#edit-movement").append('<div class="movement-row">'
+        +   '<div id="arrow-nw" class="movement-button">NW</div>'
+        +   '<div id="arrow-n" class="movement-button">N</div>'
+        +   '<div id="arrow-ne" class="movement-button">NE</div>'
+        + '</div>'
+        + '<div class="movement-row">'
+        +   '<div id="arrow-w" class="movement-button">W</div>'
+        +   '<div id="arrow--" class="movement-button">-</div>'
+        +   '<div id="arrow-e" class="movement-button">E</div>'
+        + '</div>'
+        + '<div class="movement-row">'
+        +   '<div id="arrow-sw" class="movement-button">SW</div>'
+        +   '<div id="arrow-s" class="movement-button">S</div>'
+        +   '<div id="arrow-se" class="movement-button">SE</div>'
+        + '</div>'
+      );
+
       /* loading in sphere values and classes */
       $.each(spheres, function(index, sphere) {
         $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass(sphere.sphere_type);
+        if (sphere.current_user_id_1 == user_id) {
+          $("#" + sphere.x_pos + "-" + sphere.y_pos).addClass("active");
+          current_sphere = sphere;
+          initializeMovement(current_sphere);
+        }
         if (sphere.connected_sphere_id_4 != null) {
           $("#" + sphere.x_pos + "-" + sphere.y_pos).text(sphere.sphere_stat + ';' + sphere.sphere_type_value + ';' + sphere.connected_sphere_id_1 + ';' + sphere.connected_sphere_id_2 + ';' + sphere.connected_sphere_id_3 + ';' + sphere.connected_sphere_id_4);
           $("#" + sphere.x_pos + "-" + sphere.y_pos).removeClass("sphere");
@@ -129,7 +156,9 @@
         $(".edit-controls").append('<h2 class="title">Sphere Info</h3>'
           + '<div class="sphere-info">Type: ' + $(this).attr('class') + '</div>'
           + '<div class="sphere-info">Value: ' + $('#' + $(this).attr('id')).text() + '</div>'
-          + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>');
+          + '<div class="sphere-info">Coordinate: ' + $(this).attr('id') + '</div>'
+          + '<br><br>'
+        );
       });
     });
 
@@ -277,6 +306,63 @@
         });
       }
     });
+
+    /* initialize movement buttons based off of sphere passed in */
+    function initializeMovement(sphere) {
+      var x_pos = -1;
+      var y_pos = -1;
+      for (var i = 0; i < 4; i++) {
+        if (i == 0 && sphere.connected_sphere_id_1 != null) {
+          x_pos = getXPos(sphere.connected_sphere_id_1);
+          y_pos = getYPos(sphere.connected_sphere_id_1);
+        } else if (i == 1 && sphere.connected_sphere_id_2 != null) {
+          x_pos = getXPos(sphere.connected_sphere_id_2);
+          y_pos = getYPos(sphere.connected_sphere_id_2);
+        } else if (i == 2 && sphere.connected_sphere_id_3 != null) {
+          x_pos = getXPos(sphere.connected_sphere_id_3);
+          y_pos = getYPos(sphere.connected_sphere_id_3);
+        } else if (i == 3 && sphere.connected_sphere_id_4 != null) {
+          x_pos = getXPos(sphere.connected_sphere_id_4);
+          y_pos = getYPos(sphere.connected_sphere_id_4);
+        }
+        if (sphere.x_pos > x_pos && sphere.y_pos > y_pos) {
+          assignMovement("arrow-nw", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos > x_pos && sphere.y_pos == y_pos) {
+          assignMovement("arrow-n", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos > x_pos && sphere.y_pos < y_pos) {
+          assignMovement("arrow-ne", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos == x_pos && sphere.y_pos > y_pos) {
+          assignMovement("arrow-w", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos == x_pos && sphere.y_pos < y_pos) {
+          assignMovement("arrow-e", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos < x_pos && sphere.y_pos > y_pos) {
+          assignMovement("arrow-sw", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos < x_pos && sphere.y_pos == y_pos) {
+          assignMovement("arrow-s", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        } else if (sphere.x_pos < x_pos && sphere.y_pos < y_pos) {
+          assignMovement("arrow-se", x_pos + "-" + y_pos, sphere.x_pos + "-" + sphere.y_pos);
+        }
+      }
+    }
+
+    function getXPos(connected_sphere) {
+      x_pos = connected_sphere.substring(0, connected_sphere.indexOf("-"));
+      return x_pos;
+    }
+
+    function getYPos(connected_sphere) {
+      y_pos = connected_sphere.substring(connected_sphere.indexOf("-") + 1, connected_sphere.length);
+      return y_pos;
+    }
+
+    function assignMovement(movement_button, new_sphere_pos, original_sphere_pos) {
+      $("#" + movement_button).unbind();
+      $("#" + movement_button).click(function() {
+        console.log(original_sphere_pos);
+        $("#" + original_sphere_pos).removeClass("active");
+        $("#" + new_sphere_pos).addClass("active");
+      });
+    }
   </script>
 
   <!-- Thank you DragScroll for allowing dragging with mouse to scroll. -->
