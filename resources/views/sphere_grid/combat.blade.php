@@ -16,7 +16,8 @@
   <script type="text/javascript">
     /* retrieve all of the spheres */
     var spheres = {!! json_encode($spheres) !!};
-    var user_id = {!! json_encode(Auth::user()->id) !!};
+    var user_id = {!! json_encode(Auth::user()) !!};
+    user_id = user_id.id;
     var current_sphere;
 
     /* load in all the spheres*/
