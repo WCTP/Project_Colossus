@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\sphere_grid;
 use Illuminate\Http\Request;
+use Auth;
 
 class SphereGridController extends Controller
 {
@@ -127,6 +128,30 @@ class SphereGridController extends Controller
     public function update(Request $request, sphere_grid $sphere_grid)
     {
         //
+    }
+
+    public function update_user_id(Request $request)
+    {
+      $user = Auth::user();
+      $return_status = "failed";
+
+      if ($user->player_level > 0) {
+        $new_sphere = sphere_grid::find($request->input('new_id'));
+        $old_sphere = sphere_grid::find($request->input('old_id'));
+
+        $new_sphere->current_user_id_1 = $request->input('user_id');
+        $old_sphere->current_user_id_1 = null;
+
+        $user->player_level = $user->player_level - 1;
+
+        $new_sphere->save();
+        $old_sphere->save();
+        $user->save();
+
+        $return_status = $user->player_level;
+      }
+
+      return $return_status;
     }
 
     /**

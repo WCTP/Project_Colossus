@@ -47,6 +47,7 @@ Route::get('/sphere_grid/combat', 'SphereGridController@index_combat');
 Route::get('/sphere_grid/skills', 'SphereGridController@index_skills');
 Route::post('/sphere_grid/combat/destroy_all', 'SphereGridController@destroy_all');
 Route::post('/sphere_grid/combat/store', 'SphereGridController@store');
+Route::post('/sphere_grid/combat/update_current_user_id', 'SphereGridController@update_user_id');
 
 /* search route */
 Route::get('/search/{keyword}', 'HomeController@search');
